@@ -1,12 +1,14 @@
+#coding:utf-8
 import urllib2
+import cookielib
 
-requset = urllib2.Request('http://blog.csdn.net/cqcre')
-try:
-	urllib2.urlopen(requset)
-except urllib2.URLError, e:
-	if hasattr(e, "code"):
-		print e.code
-	if hasattr(e, "reason"):
-		print e.reason
-else:
-	print "OK"
+cookie = cookielib.CookieJar()
+#利用urllib2库的HTTPCookieProcessor对象来创建cookie处理器
+handler = urllib2.HTTPCookieProcessor(cookie)
+#通过handler来构建opener
+opener = urllib2.build_opener(handler)
+#此处的open方法同urllib2的urlopen方法，也可以传入request
+response = opener.open('http://www.baidu.com')
+for item in cookie:
+	print 'Name = ' + item.name
+	print 'Value = ' + item.value
