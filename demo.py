@@ -1,7 +1,12 @@
 import urllib2
 
-httpHandler = urllib2.HTTPHandler(debuglevel=1)
-httpsHandler = urllib2.HTTPSHandler(debuglevel=1)
-opener = urllib2.build_opener(httpHandler, httpsHandler)
-urllib2.install_opener(opener)
-response = urllib2.urlopen('http://www.baidu.com')
+requset = urllib2.Request('http://blog.csdn.net/cqcre')
+try:
+	urllib2.urlopen(requset)
+except urllib2.URLError, e:
+	if hasattr(e, "code"):
+		print e.code
+	if hasattr(e, "reason"):
+		print e.reason
+else:
+	print "OK"
