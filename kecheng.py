@@ -11,13 +11,16 @@ import sys
 reload(sys)
 sys.setdefaultencoding("utf-8")
 
-def do_xiaoqu_spider(db_xq,region=u"luohu"):
-    url=u"http://sz.lianjia.com/zufang/"+region+"/"
+def do_xiaoqu_spider(region,number):
+    if number == 1:
+        url=u"http://sz.lianjia.com/zufang/"+region+"/"
+    else:
+        url=u"http://sz.lianjia.com/zufang/"+region+"/pg"+str(number)+"/"
     try:
         req = urllib2.Request(url)#headers=hds[random.randint(0,len(hds)-1)])
         source_code = urllib2.urlopen(req,timeout=5).read()
         plain_text=unicode(source_code)#,errors='ignore')   
-        soup = BeautifulSoup(plain_text)
+        soup = BeautifulSoup(plain_text, "lxml")
     except (urllib2.HTTPError, urllib2.URLError), e:
         print e
         return
@@ -34,16 +37,26 @@ def do_xiaoqu_spider(db_xq,region=u"luohu"):
         href=xq.find('a')
         if not href:
             continue
+            """
         info_dict.update({u'链接':href.attrs['title']})
         print info_dict
         print href.attrs['title']
         content=xq.find('h2').text.split(' ')
         if content:
             info_dict.update({u'小区名称':content[0]})
+            """
         #    info_dict.update({u'户型':content[1]})
         #    info_dict.update({u'面积':content[2]})
-        meter = soup.find('span','meters')
+        locate = xq.find('span', 'region')
+        print locate.get_text()
+        zone = xq.find('span','zone')
+        print zone.get_text()
+        meter = xq.find('span','meters')
         print meter.get_text()
+        price = xq.find('div', 'price')
+        print price.get_text()
+        f = open('buxin.txt','a')
+        f.write(locate.get_text()+" "+zone.get_text()+" "+meter.get_text()+" "+price.get_text()+"\n")
     """
     xiaoqu_list=soup.findAll('div',{'class':'info-panel'})
     for xq in xiaoqu_list:
@@ -71,6 +84,10 @@ def do_xiaoqu_spider(db_xq,region=u"luohu"):
     #    t.join()
     print u"爬下了 %s 区全部的小区信息" % region
 
-do_xiaoqu_spider("罗湖")
+def pg_spider(region, number):
+    for i in range(1,number):
+        do_xiaoqu_spider(region,i)
+
+pg_spider("buxin",16)
 
 
