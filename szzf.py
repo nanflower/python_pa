@@ -13,26 +13,26 @@ sys.setdefaultencoding("utf-8")
 
 szquyu=["luohu","futian","nanshan","yantian","baoan","longgang","longhuaxinqu"]
 
-lhquyu=["buxin","chunfenglu","dongmen","diwang","honghu","huangbeiling",
+luohu=["buxin","chunfenglu","dongmen","diwang","honghu","huangbeiling",
 "luohukouan","liantang","sungang","wanxiangcheng","xinxiu","yinhu"]
 
-ftquyu=["baihua","bijiashan","bagualing","chegongmiao","futianzhongxin",
+futian=["baihua","bijiashan","bagualing","chegongmiao","futianzhongxin",
 "futianbaoshuiqu","huaqiangnan","huaqiangbei","huanggang","huaqiaocheng1",
 "jingtian","lianhua","meilin","shangxiasha","shangbu","shixia","xiangmihu",
 "xinzhou","yuanling","zhuzilin"]
 
-nsquyu=["baishizhou","daxuecheng3","houhai","hongshuwan","kexueyuan","nantou",
+nanshan=["baishizhou","daxuecheng3","houhai","hongshuwan","kexueyuan","nantou",
 "nanshanzhongxin","qianhai","shetou","shenzhenwan","xili"]
 
-ytquyu=["meisha","shatoujiao","yantiangang"]
+yantian=["meisha","shatoujiao","yantiangang"]
 
-baquyu=["baoanzhongxin","fuyong","gongming","songgang","shajing","shiyan","taoyuanju",
+baoan=["baoanzhongxin","fuyong","gongming","songgang","shajing","shiyan","taoyuanju",
 "xinan","xicheng","xixiang"]
 
-lgquyu=["bantian","buji","henggang","longgangzhongxin","nanlian","pingshan",
+longgang=["bantian","buji","henggang","longgangzhongxin","nanlian","pingshan",
 "pingdi","pinghu"]
 
-lhxqquyu=["dalang","guanlan","longhuazhongxin","minzhi","qinghu","shenzhenbeizhan"]
+longhuaxinqu=["dalang","guanlan","longhuazhongxin","minzhi","qinghu","shenzhenbeizhan"]
 
 bc=["xicheng1","xixiang"]
 
@@ -111,7 +111,7 @@ def pg_spider(area,region):
     print u"爬下了 %s 区全部 %s 页的小区信息\n" % (region ,number)
 
 for area in szquyu:
-    for qy in lhxqquyu:
+    for qy in area:
         pg_spider(area,qy)
 print u"爬下所有%s信息\n" % area
 
